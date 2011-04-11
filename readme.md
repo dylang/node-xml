@@ -90,13 +90,14 @@ Everything should pass:
 
 ## Keywords
 
- * ___atr__: set attributes using a hash of key/value pairs.
+ * ___attr__: set attributes using a hash of key/value pairs.
  * ___cdata__: Value of _cdata is wrapped in xml CDATA so the data does not need to be escaped.
 
 
 # Contributing
 
-Contributions to the project are most welcome, so feel free to fork and improve.
+Contributions to the project are welcome. Feel free to fork and improve. I accept pull requests and issues,
+especially when tests are included.
 
 # License
 
