@@ -1,0 +1,30 @@
+{
+    "name": "xml",
+    "version": "0.0.2",
+    "description": "Fast and simple xml generator. Supports attributes, CDATA, etc. Tests and examples.",
+    "homepage": "http://github.com/dylang/node-xml",
+    "author": "Dylan Greene <dylang@gmail.com>",
+    "contributors": [
+        "Dylan Greene <dylang@gmail.com>"
+    ],
+    "repository":
+    {
+        "type": "git",
+        "url": "http://github.com/dylang/node-xml"
+    },
+    "bugs":
+    {
+        "mail": "dylang@gmail.com",
+        "web": "http://github.com/dylang/node-xml/issues"
+    },
+    "dependencies":
+    {
+        "logging": ">= 2.0.0"
+    },
+    "main": "index.js",
+    "engines": { "node": ">=0.4.0" },
+    "licenses" :
+    [
+        { "type" : "MIT", "url" : "http://github.com/dylang/node-xml/raw/master/LICENSE" }
+    ]
+}
