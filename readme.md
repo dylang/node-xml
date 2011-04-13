@@ -70,19 +70,28 @@ Everything should pass:
     </toys>
     */
 
-    var example5 = [ { toys: [ { _attr: { decade: '80s', locale: 'US'} }, { toy: 'Transformers' } , { toy: 'GI Joe' }, { toy: [ { name: 'He-man' }, { description: { _cdata: '<strong>Master of the Universe!</strong>'} } ] } ] } ];
+    var example5 = [ { toys: [ { _attr: { decade: '80s', locale: 'US'} }, { toy: 'Transformers' } , { toy: [ { _attr: { knowing: 'half the battle' } }, 'GI Joe'] }, { toy: [ { name: 'He-man' }, { description: { _cdata: '<strong>Master of the Universe!</strong>'} } ] } ] } ];
     console.log(XML(example5, true));
     /*
+    <toys><toy>Transformers</toy><toy>GI Joe</toy><toy>He-man</toy></toys>
+    <toys>
+        <toy>Transformers</toy>
+        <toy>GI Joe</toy>
+        <toy>He-man</toy>
+    </toys>
     <toys decade="80s" locale="US">
         <toy>Transformers</toy>
         <toy>GI Joe</toy>
+        <toy>He-man</toy>
+    </toys>
+    <toys decade="80s" locale="US">
+        <toy>Transformers</toy>
+        <toy knowing="half the battle">
+            GI Joe
+        </toy>
         <toy>
             <name>He-man</name>
-            <description>
-    <![CDATA[
-    <strong>Master of the Universe!</strong>
-    ]]>
-            </description>
+            <description><![CDATA[<strong>Master of the Universe!</strong>]]></description>
         </toy>
     </toys>
     */
