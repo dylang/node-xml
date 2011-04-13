@@ -49,6 +49,7 @@ module.exports = {
         test.equal(XML([ { b: { _attr: {} } } ]), '<b/>');
         test.equal(XML([ { a: { _attr: { attribute1: 'some value', attribute2: 12345 } } } ]), '<a attribute1="some value" attribute2="12345"/>');
         test.equal(XML([ { a: [{ _attr: { attribute1: 'some value', attribute2: 12345 } }] } ]), '<a attribute1="some value" attribute2="12345"></a>');
+        test.equal(XML([ { a: [{ _attr: { attribute1: 'some value', attribute2: 12345 } }, 'content'] } ]), '<a attribute1="some value" attribute2="12345">content</a>');
         test.done();
     },
 
