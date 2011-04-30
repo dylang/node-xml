@@ -20,21 +20,23 @@
 Everything should pass:
 
     test
-    ? empty
-    ? simple
-    ? deep
-    ? indent
-    ? attributes
-    ? cdata
-    ? encoding
+    ✔ empty
+    ✔ simple
+    ✔ deep
+    ✔ indent
+    ✔ attributes
+    ✔ cdata
+    ✔ encoding
+    ✔ stream
 
-    OK: 30 assertions (4ms)
+    OK: 33 assertions (7ms)
 
 ## API
-    XML(object, [indent])
+    XML(object, [indent || options])
 
   * __object__ See Usage for how this can work.
   * __indent__ Falsy value: No indent or line breaks (default). True: 4 spaces. '\t': Single tab. '  ': Two spaces.  Etc.
+  * __options__ 'indent': same as __indent__, 'stream': force result to be a stream
 
 ## Usage
 
@@ -94,6 +96,24 @@ Everything should pass:
             <description><![CDATA[<strong>Master of the Universe!</strong>]]></description>
         </toy>
     </toys>
+    */
+
+    var elem = XML.Element({ _attr: { decade: '80s', locale: 'US'} });
+    var xml = XML({ toys: elem }, true);
+    xml.on('data', function (chunk) {console.log("data:", chunk)});
+    elem.push({ toy: 'Transformers' });
+    elem.push({ toy: 'GI Joe' });
+    elem.push({ toy: [{name:'He-man'}] });
+    elem.close();
+
+    /*
+    data: <toys decade="80s" locale="US">
+    data:     <toy>Transformers</toy>
+    data:     <toy>GI Joe</toy>
+    data:     <toy>
+            <name>He-man</name>
+        </toy>
+    data: </toys>
     */
 
 
