@@ -34,21 +34,27 @@ Everything should pass:
 ## API
     XML(object, [indent || options])
 
-  * __object__ See Usage for how this can work.
-  * __indent__ Falsy value: No indent or line breaks (default). True: 4 spaces. '\t': Single tab. '  ': Two spaces.  Etc.
-  * __options__ 'indent': same as __indent__, 'stream': force result to be a stream
+  * `object` See Usage for how this can work.
+  * `indent` Falsy value: No indent or line breaks (default). True: 4 spaces. `\t`: Single tab. `  `: Two spaces.  Etc.
+  * `options` 'indent': same as `indent`, 'stream': force result to be a stream
 
-## Usage
+## Examples
 
     var XML = require('xml');
+
+**Simple Example**
 
     var example1 = [ { url: 'http://www.google.com/search?aq=f&sourceid=chrome&ie=UTF-8&q=opower' } ];
     console.log(XML(example1));
     //<url>http://www.google.com/search?aq=f&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=opower</url>
 
+**Example with attributes**
+
     var example2 = [ { url: { _attr: { hostname: 'www.google.com', path: '/search?aq=f&sourceid=chrome&ie=UTF-8&q=opower' }  } } ];
     console.log(XML(example2));
     //<url hostname="www.google.com" path="/search?aq=f&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=opower"/>
+
+**Example with array of same-named elements and nice formating**
 
     var example3 = [ { toys: [ { toy: 'Transformers' } , { toy: 'GI Joe' }, { toy: 'He-man' } ] } ];
     console.log(XML(example3));
@@ -62,6 +68,8 @@ Everything should pass:
     </toys>
     */
 
+**More complex example**
+
     var example4 = [ { toys: [ { _attr: { decade: '80s', locale: 'US'} }, { toy: 'Transformers' } , { toy: 'GI Joe' }, { toy: 'He-man' } ] } ];
     console.log(XML(example4, true));
     /*
@@ -71,6 +79,8 @@ Everything should pass:
         <toy>He-man</toy>
     </toys>
     */
+
+**Even more complex example**
 
     var example5 = [ { toys: [ { _attr: { decade: '80s', locale: 'US'} }, { toy: 'Transformers' } , { toy: [ { _attr: { knowing: 'half the battle' } }, 'GI Joe'] }, { toy: [ { name: 'He-man' }, { description: { _cdata: '<strong>Master of the Universe!</strong>'} } ] } ] } ];
     console.log(XML(example5, true));
@@ -98,6 +108,8 @@ Everything should pass:
     </toys>
     */
 
+**Stream Example**
+
     var elem = XML.Element({ _attr: { decade: '80s', locale: 'US'} });
     var xml = XML({ toys: elem }, true);
     xml.on('data', function (chunk) {console.log("data:", chunk)});
@@ -119,8 +131,8 @@ Everything should pass:
 
 ## Keywords
 
- * ___attr__: set attributes using a hash of key/value pairs.
- * ___cdata__: Value of _cdata is wrapped in xml CDATA so the data does not need to be escaped.
+ * `_attr`: set attributes using a hash of key/value pairs.
+ * `_cdata`: Value of _cdata is wrapped in xml CDATA so the data does not need to be escaped.
 
 
 # Contributing
