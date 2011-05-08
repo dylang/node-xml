@@ -56,3 +56,21 @@ console.log(XML(example5, true));
     </toy>
 </toys>
 */
+
+var elem = XML.Element({ _attr: { decade: '80s', locale: 'US'} });
+var xml = XML({ toys: elem }, true);
+xml.on('data', function (chunk) {console.log("data:", chunk)});
+elem.push({ toy: 'Transformers' });
+elem.push({ toy: 'GI Joe' });
+elem.push({ toy: [{name:'He-man'}] });
+elem.close();
+
+/*
+data: <toys decade="80s" locale="US">
+data:     <toy>Transformers</toy>
+data:     <toy>GI Joe</toy>
+data:     <toy>
+        <name>He-man</name>
+    </toy>
+data: </toys>
+*/
