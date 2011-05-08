@@ -62,6 +62,27 @@ module.exports = {
     encoding: function(test) {
         test.equal(XML([ { a: [ {  _attr: { anglebrackets: 'this is <strong>strong</strong>', url: 'http://google.com?s=opower&y=fun' } }, 'text'] } ]), '<a anglebrackets="this is &lt;strong&gt;strong&lt;/strong&gt;" url="http://google.com?s=opower&amp;y=fun">text</a>');
         test.done();
+    },
+
+    stream: function (test) {
+        var elem = XML.Element({ _attr: { decade: '80s', locale: 'US'} });
+        var xmlstream = XML({ toys: elem });
+        var results = ['<toys decade="80s" locale="US">','<toy>Transformers</toy>','<toy><name>He-man</name></toy>','<toy>GI Joe</toy>','</toys>'];
+
+        xmlstream.on('data', function (stanza) {
+            test.equal(stanza, results.shift());
+        });
+        xmlstream.on('close', function () {
+            test.deepEqual(results, []);
+            test.done();
+        });
+
+        elem.push({ toy: 'Transformers' });
+        elem.push({ toy: [ { name: 'He-man' } ] });
+        setTimeout(function () {
+            elem.push({ toy: 'GI Joe' });
+            elem.close();
+        }, 1);
     }
 
 };
