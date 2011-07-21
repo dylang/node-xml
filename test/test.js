@@ -13,6 +13,7 @@ module.exports = {
         test.equal(XML('test'), 'test');
         test.equal(XML('test'), 'test');
         test.equal(XML('scotch & whisky'), 'scotch &amp; whisky');
+        test.equal(XML('bob\'s escape character'), 'bob&apos;s escape character');
         test.done();
     },
 
