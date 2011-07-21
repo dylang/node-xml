@@ -1,6 +1,6 @@
 {
     "name": "xml",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.",
     "homepage": "http://github.com/dylang/node-xml",
     "keywords": [
@@ -11,7 +11,8 @@
     "author": "Dylan Greene (https://github.com/dylang)",
     "contributors": [
         "Dylan Greene (https://github.com/dylang)",
-        "Dodo (https://github.com/dodo)"
+        "Dodo (https://github.com/dodo)",
+        "Felix Geisendšrfer (felix@debuggable.com)"
     ],
     "repository":
     {
