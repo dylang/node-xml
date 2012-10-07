@@ -14,11 +14,14 @@
 
  Use [nodeunit](https://github.com/caolan/nodeunit) to run the tests.
 
+```bash
     $ npm install nodeunit
     $ nodeunit test
+```
 
 Everything should pass:
 
+```
     test
     ✔ empty
     ✔ simple
@@ -30,6 +33,7 @@ Everything should pass:
     ✔ stream
 
     OK: 33 assertions (7ms)
+```
 
 ## API
     XML(object, [indent || options])
@@ -40,22 +44,29 @@ Everything should pass:
 
 ## Examples
 
+```javascript
     var XML = require('xml');
+```
 
 **Simple Example**
 
+```javascript
     var example1 = [ { url: 'http://www.google.com/search?aq=f&sourceid=chrome&ie=UTF-8&q=opower' } ];
     console.log(XML(example1));
     //<url>http://www.google.com/search?aq=f&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=opower</url>
+```
 
 **Example with attributes**
 
+```javascript
     var example2 = [ { url: { _attr: { hostname: 'www.google.com', path: '/search?aq=f&sourceid=chrome&ie=UTF-8&q=opower' }  } } ];
     console.log(XML(example2));
     //<url hostname="www.google.com" path="/search?aq=f&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=opower"/>
+```
 
 **Example with array of same-named elements and nice formating**
 
+```javascript
     var example3 = [ { toys: [ { toy: 'Transformers' } , { toy: 'GI Joe' }, { toy: 'He-man' } ] } ];
     console.log(XML(example3));
     //<toys><toy>Transformers</toy><toy>GI Joe</toy><toy>He-man</toy></toys>
@@ -67,9 +78,11 @@ Everything should pass:
         <toy>He-man</toy>
     </toys>
     */
+```
 
 **More complex example**
 
+```javascript
     var example4 = [ { toys: [ { _attr: { decade: '80s', locale: 'US'} }, { toy: 'Transformers' } , { toy: 'GI Joe' }, { toy: 'He-man' } ] } ];
     console.log(XML(example4, true));
     /*
@@ -79,9 +92,11 @@ Everything should pass:
         <toy>He-man</toy>
     </toys>
     */
+```
 
 **Even more complex example**
 
+```javascript
     var example5 = [ { toys: [ { _attr: { decade: '80s', locale: 'US'} }, { toy: 'Transformers' } , { toy: [ { _attr: { knowing: 'half the battle' } }, 'GI Joe'] }, { toy: [ { name: 'He-man' }, { description: { _cdata: '<strong>Master of the Universe!</strong>'} } ] } ] } ];
     console.log(XML(example5, true));
     /*
@@ -107,9 +122,11 @@ Everything should pass:
         </toy>
     </toys>
     */
+```
 
 **Stream Example**
 
+```javascript
     var elem = XML.Element({ _attr: { decade: '80s', locale: 'US'} });
     var xml = XML({ toys: elem }, true);
     xml.on('data', function (chunk) {console.log("data:", chunk)});
@@ -127,7 +144,7 @@ Everything should pass:
         </toy>
     data: </toys>
     */
-
+```
 
 ## Keywords
 
