@@ -57,6 +57,7 @@ module.exports = {
     cdata: function(test) {
         test.equal(XML([ { a: { _cdata: 'This is some <strong>CDATA</strong>' } } ]), '<a><![CDATA[This is some <strong>CDATA</strong>]]></a>');
         test.equal(XML([ { a: { _attr: { attribute1: 'some value', attribute2: 12345 },  _cdata: 'This is some <strong>CDATA</strong>' } } ]), '<a attribute1="some value" attribute2="12345"><![CDATA[This is some <strong>CDATA</strong>]]></a>');
+        test.equal(XML([ { a: { _cdata: 'This is some <strong>CDATA</strong> with ]]> and then again ]]>' } } ]), '<a><![CDATA[This is some <strong>CDATA</strong> with ]]]]><![CDATA[> and then again ]]]]><![CDATA[>]]></a>');
         test.done();
     },
 
