@@ -83,18 +83,20 @@ data: </toys>
 */
 ```
 
-
-`declartion` {_options_} Add default xml declaration as first node.
+`Declaration` _optional_ Add default xml declaration as first node.
 
 _options_ are:
 * encoding: 'value'
 * standalone: 'value'
           
-**Declartion Example**
+**Declaration Example**
 
 ```js
-xml([ { a: 'test' }], { declaration: true }) === '<?xml version="1.0" encoding="UTF-8"?><a>test</a>'
-xml([ { a: 'test' }], { declaration: { standalone: 'yes', encoding: 'UTF-16' }}) === '<?xml version="1.0" encoding="UTF-16" standalone="yes"?><a>test</a>'
+xml([ { a: 'test' }], { declaration: true })
+//result: '<?xml version="1.0" encoding="UTF-8"?><a>test</a>'
+
+xml([ { a: 'test' }], { declaration: { standalone: 'yes', encoding: 'UTF-16' }})
+//result: '<?xml version="1.0" encoding="UTF-16" standalone="yes"?><a>test</a>'
 ```
 
 ## Examples
@@ -112,7 +114,7 @@ console.log(XML(example1));
 ```js
 var example2 = [ { url: { _attr: { hostname: 'www.google.com', path: '/search?aq=f&sourceid=chrome&ie=UTF-8&q=opower' }  } } ];
 console.log(XML(example2));
-//<url hostname="www.google.com" path="/search?aq=f&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=opower"/>
+//result: <url hostname="www.google.com" path="/search?aq=f&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=opower"/>
 ```
 
 **Example with array of same-named elements and nice formatting**
@@ -120,9 +122,10 @@ console.log(XML(example2));
 ```js
 var example3 = [ { toys: [ { toy: 'Transformers' } , { toy: 'GI Joe' }, { toy: 'He-man' } ] } ];
 console.log(XML(example3));
-//<toys><toy>Transformers</toy><toy>GI Joe</toy><toy>He-man</toy></toys>
+//result: <toys><toy>Transformers</toy><toy>GI Joe</toy><toy>He-man</toy></toys>
 console.log(XML(example3, true));
 /*
+result:
 <toys>
     <toy>Transformers</toy>
     <toy>GI Joe</toy>
@@ -137,6 +140,7 @@ console.log(XML(example3, true));
 var example4 = [ { toys: [ { _attr: { decade: '80s', locale: 'US'} }, { toy: 'Transformers' } , { toy: 'GI Joe' }, { toy: 'He-man' } ] } ];
 console.log(XML(example4, true));
 /*
+result:
 <toys decade="80s" locale="US">
     <toy>Transformers</toy>
     <toy>GI Joe</toy>
@@ -151,6 +155,7 @@ console.log(XML(example4, true));
 var example5 = [ { toys: [ { _attr: { decade: '80s', locale: 'US'} }, { toy: 'Transformers' } , { toy: [ { _attr: { knowing: 'half the battle' } }, 'GI Joe'] }, { toy: [ { name: 'He-man' }, { description: { _cdata: '<strong>Master of the Universe!</strong>'} } ] } ] } ];
 console.log(XML(example5, true));
 /*
+result:
 <toys decade="80s" locale="US">
     <toy>Transformers</toy>
     <toy knowing="half the battle">
@@ -163,7 +168,6 @@ console.log(XML(example5, true));
 </toys>
 */
 ```
-
 
 ## Tests
 
