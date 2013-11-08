@@ -85,4 +85,13 @@ describe('xml module', function(done) {
         }, 10);
     });
 
+    it('xml declaration options', function(done) {
+        expect(xml([ { a: 'test' }], { declaration: true })).to.equal('<?xml version="1.0" encoding="UTF-8"?><a>test</a>');
+        expect(xml([ { a: 'test' }], { declaration: {encoding: 'foo' }})).to.equal('<?xml version="1.0" encoding="foo"?><a>test</a>');
+        expect(xml([ { a: 'test' }], { declaration: {standalone: 'yes' }})).to.equal('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><a>test</a>');
+        expect(xml([ { a: 'test' }], { declaration: false })).to.equal('<a>test</a>');
+        expect(xml([ { a: 'test' }], {})).to.equal('<a>test</a>');
+        done();
+    });
+
 });

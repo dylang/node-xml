@@ -84,6 +84,19 @@ data: </toys>
 ```
 
 
+`declartion` {_options_} Add default xml declaration as first node.
+
+_options_ are:
+* encoding: 'value'
+* standalone: 'value'
+          
+**Declartion Example**
+
+```js
+xml([ { a: 'test' }], { declaration: true }) === '<?xml version="1.0" encoding="UTF-8"?><a>test</a>'
+xml([ { a: 'test' }], { declaration: { standalone: 'yes', encoding: 'UTF-16' }}) === '<?xml version="1.0" encoding="UTF-16" standalone="yes"?><a>test</a>'
+```
+
 ## Examples
 
 **Simple Example**
