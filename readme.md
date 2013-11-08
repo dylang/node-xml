@@ -83,13 +83,13 @@ data: </toys>
 */
 ```
 
-`declartion` _optional_ Add default xml declaration as first node.
+`Declaration` _optional_ Add default xml declaration as first node.
 
 _options_ are:
 * encoding: 'value'
 * standalone: 'value'
           
-**Declartion Example**
+**Declaration Example**
 
 ```js
 xml([ { a: 'test' }], { declaration: true })
