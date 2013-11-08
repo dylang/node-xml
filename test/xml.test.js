@@ -90,6 +90,7 @@ describe('xml module', function(done) {
         expect(xml([ { a: 'test' }], { declaration: {encoding: 'foo' }})).to.equal('<?xml version="1.0" encoding="foo"?><a>test</a>');
         expect(xml([ { a: 'test' }], { declaration: {standalone: 'yes' }})).to.equal('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><a>test</a>');
         expect(xml([ { a: 'test' }], { declaration: false })).to.equal('<a>test</a>');
+        expect(xml([ { a: 'test' }], { declaration: true, indent: '\n' })).to.equal('<?xml version="1.0" encoding="UTF-8"?>\n<a>test</a>');
         expect(xml([ { a: 'test' }], {})).to.equal('<a>test</a>');
         done();
     });
