@@ -83,8 +83,7 @@ data: </toys>
 */
 ```
 
-
-`declartion` {_options_} Add default xml declaration as first node.
+`declartion` _optional_ Add default xml declaration as first node.
 
 _options_ are:
 * encoding: 'value'
