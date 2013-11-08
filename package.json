@@ -1,6 +1,6 @@
 {
     "name": "xml",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.",
     "homepage": "http://github.com/dylang/node-xml",
     "keywords": [
