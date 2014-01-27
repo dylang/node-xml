@@ -41,6 +41,7 @@ describe('xml module', function(done) {
         expect(xml([ { a: [ { b: [ { c: 1 }, { c: 2 }, { c: 3 } ] } ] }], true)).to.equal('<a>\n    <b>\n        <c>1</c>\n        <c>2</c>\n        <c>3</c>\n    </b>\n</a>');
         expect(xml([ { a: [ { b: [ { c: 1 }, { c: 2 }, { c: 3 } ] } ] }], '  ')).to.equal('<a>\n  <b>\n    <c>1</c>\n    <c>2</c>\n    <c>3</c>\n  </b>\n</a>');
         expect(xml([ { a: [ { b: [ { c: 1 }, { c: 2 }, { c: 3 } ] } ] }], '\t')).to.equal('<a>\n\t<b>\n\t\t<c>1</c>\n\t\t<c>2</c>\n\t\t<c>3</c>\n\t</b>\n</a>');
+        expect(xml({guid:[{_attr:{premalink:true}},'content']},true)).to.equal('<guid premalink="true">content</guid>');
         done();
     });
 
