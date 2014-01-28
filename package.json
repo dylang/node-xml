@@ -1,49 +1,46 @@
 {
-    "name": "xml",
-    "version": "0.0.11",
-    "description": "Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.",
-    "homepage": "http://github.com/dylang/node-xml",
-    "keywords": [
-        "xml",
-        "create",
-        "builder",
-        "json",
-        "simple"
-    ],
-    "author": "Dylan Greene (https://github.com/dylang)",
-    "contributors": [
-        "Dylan Greene (https://github.com/dylang)",
-        "Dodo (https://github.com/dodo)",
-        "Felix Geisendrfer (felix@debuggable.com)",
-        "Mithgol",
-        "carolineBda (https://github.com/carolineBda)"
-    ],
-    "repository":
+  "name": "xml",
+  "version": "0.0.11",
+  "description": "Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.",
+  "homepage": "http://github.com/dylang/node-xml",
+  "keywords": [
+    "xml",
+    "create",
+    "builder",
+    "json",
+    "simple"
+  ],
+  "author": "Dylan Greene (https://github.com/dylang)",
+  "contributors": [
+    "Dylan Greene (https://github.com/dylang)",
+    "Dodo (https://github.com/dodo)",
+    "Felix Geisendrfer (felix@debuggable.com)",
+    "Mithgol",
+    "carolineBda (https://github.com/carolineBda)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/dylang/node-xml"
+  },
+  "bugs": {
+    "mail": "dylang@gmail.com",
+    "url": "http://github.com/dylang/node-xml/issues"
+  },
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.17.1"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "main": "lib/xml.js",
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "licenses": [
     {
-        "type": "git",
-        "url": "http://github.com/dylang/node-xml"
-    },
-    "bugs":
-    {
-        "mail": "dylang@gmail.com",
-        "url": "http://github.com/dylang/node-xml/issues"
-    },
-    "devDependencies": {
-        "chai": "~1.7.2",
-        "mocha": "~1.12.0"
-    },
-    "scripts": {
-        "test": "./node_modules/.bin/mocha --reporter spec"
-    },
-    "main": "lib/xml.js",
-    "engines": {
-        "node": ">=0.4.0"
-    },
-    "licenses" :
-    [
-        {
-            "type": "MIT",
-            "url":  "http://github.com/dylang/node-xml/raw/master/LICENSE"
-        }
-    ]
+      "type": "MIT",
+      "url": "http://github.com/dylang/node-xml/raw/master/LICENSE"
+    }
+  ]
 }
