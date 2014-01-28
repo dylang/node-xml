@@ -1,6 +1,6 @@
 {
   "name": "xml",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.",
   "homepage": "http://github.com/dylang/node-xml",
   "keywords": [
@@ -16,7 +16,8 @@
     "Dodo (https://github.com/dodo)",
     "Felix Geisendrfer (felix@debuggable.com)",
     "Mithgol",
-    "carolineBda (https://github.com/carolineBda)"
+    "carolineBda (https://github.com/carolineBda)",
+    "Eric Vantillard https://github.com/evantill"
   ],
   "repository": {
     "type": "git",
