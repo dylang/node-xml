@@ -60,6 +60,8 @@ xml({a: { _attr: { attr:'hi'}, _cdata: "I'm not escaped" }}) === '<a attr="hi"><
 
 `stream` Return the result as a `stream`.
 
+`escapeFn` _optional_ **function** Replace the built-in escapeForXml function with the passed function.
+
 **Stream Example**
 
 ```js
@@ -88,7 +90,7 @@ data: </toys>
 _options_ are:
 * encoding: 'value'
 * standalone: 'value'
-          
+
 **Declaration Example**
 
 ```js

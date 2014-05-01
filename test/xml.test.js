@@ -17,6 +17,16 @@ describe('xml module', function(done) {
         done();
     });
 
+    it('allows configurable escape function', function(done) {
+        expect(xml('scotch & whisky')).to.equal('scotch &amp; whisky');
+        expect(xml('scotch & whisky', {
+            escapeFn: function (string) {
+                return string.replace(/&/g,'and');
+            }
+        })).to.equal('scotch and whisky');
+        done();
+    });
+
     it('works with simple options', function(done) {
         expect(xml([ { a: {} }])).to.equal('<a/>');
         expect(xml([ { a: [] }])).to.equal('<a></a>');
