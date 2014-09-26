@@ -1,6 +1,6 @@
 {
   "name": "xml",
-  "version": "0.0.12",
+  "version": "1.0.0",
   "description": "Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.",
   "homepage": "http://github.com/dylang/node-xml",
   "keywords": [
@@ -17,31 +17,23 @@
     "Felix Geisendrfer (felix@debuggable.com)",
     "Mithgol",
     "carolineBda (https://github.com/carolineBda)",
-    "Eric Vantillard https://github.com/evantill"
+    "Eric Vantillard https://github.com/evantill",
+    "Sean Dwyer https://github.com/reywood"
   ],
   "repository": {
     "type": "git",
     "url": "http://github.com/dylang/node-xml"
   },
   "bugs": {
-    "mail": "dylang@gmail.com",
     "url": "http://github.com/dylang/node-xml/issues"
   },
   "devDependencies": {
-    "chai": "~1.8.1",
-    "mocha": "~1.17.1"
+    "chai": "~1.9.0",
+    "mocha": "~1.21.4"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "mocha --reporter spec"
   },
   "main": "lib/xml.js",
-  "engines": {
-    "node": ">=0.4.0"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/dylang/node-xml/raw/master/LICENSE"
-    }
-  ]
+  "license": "MIT"
 }
