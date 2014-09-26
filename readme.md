@@ -1,4 +1,4 @@
-# XML for Node [![Build Status](https://secure.travis-ci.org/dylang/node-xml.png)](http://travis-ci.org/dylang/node-xml)
+# XML for Node [![Build Status](https://api.travis-ci.org/dylang/node-xml.svg)](http://travis-ci.org/dylang/node-xml)
 
   [![NPM](https://nodei.co/npm/xml.png?downloads=true)](https://nodei.co/npm/xml/)
 
