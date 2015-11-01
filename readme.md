@@ -27,7 +27,7 @@ Keys will become tag names.
 Values can be an `array of xmlObjects` or a value such as a `string` or `number`.
 
 ```js
-xml({a: 1})) === '<a>1</a>'
+xml({a: 1}) === '<a>1</a>'
 xml({nested: [{ keys: [{ fun: 'hi' }]}]}) === '<nested><keys><fun>hi</fun></keys></nested>'
 ```
 
