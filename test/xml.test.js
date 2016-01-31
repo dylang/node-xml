@@ -1,101 +1,150 @@
-/*
-    Run `npm test` to run tests
-*/
+import test from 'ava';
+import xml from '../lib/xml';
 
-var xml = require('../lib/xml');
-var expect = require('chai').expect;
+test('no elements', t => {
+    t.is(xml(), '');
+    t.is(xml([]), '');
+    t.is(xml('test'), 'test');
+    t.is(xml('scotch & whisky'), 'scotch &amp; whisky');
+    t.is(xml('bob\'s escape character'), 'bob&apos;s escape character');
+});
 
-describe('xml module', function(done) {
+test('simple options', t => {
+    t.is(xml([{a: {}}]), '<a/>');
+    t.is(xml([{a: null}]), '<a/>');
+    t.is(xml([{a: []}]), '<a></a>');
+    t.is(xml([{a: -1}]), '<a>-1</a>');
+    t.is(xml([{a: false}]), '<a>false</a>');
+    t.is(xml([{a: 'test'}]), '<a>test</a>');
+    t.is(xml({a: {}}), '<a/>');
+    t.is(xml({a: null}), '<a/>');
+    t.is(xml({a: []}), '<a></a>');
+    t.is(xml({a: -1}), '<a>-1</a>');
+    t.is(xml({a: false}), '<a>false</a>');
+    t.is(xml({a: 'test'}), '<a>test</a>');
+    t.is(xml([{a: 'test'}, {b: 123}, {c: -0.5}]), '<a>test</a><b>123</b><c>-0.5</c>');
+});
 
-    it('can be have no elements', function(done) {
-        expect(xml()).to.be.empty;
-        expect(xml([])).to.be.empty;
-        expect(xml('test')).to.equal('test');
-        expect(xml('test')).to.equal('test');
-        expect(xml('scotch & whisky')).to.equal('scotch &amp; whisky');
-        expect(xml('bob\'s escape character')).to.equal('bob&apos;s escape character');
-        done();
+test('deeply nested objects', t => {
+    t.is(xml([{a: [{b: [{c: 1}, {c: 2}, {c: 3}]}]}]), '<a><b><c>1</c><c>2</c><c>3</c></b></a>');
+});
+
+test('indents property', t => {
+    t.is(xml([{a: [{b: [{c: 1}, {c: 2}, {c: 3}]}]}], true), '<a>\n    <b>\n        <c>1</c>\n        <c>2</c>\n        <c>3</c>\n    </b>\n</a>');
+    t.is(xml([{a: [{b: [{c: 1}, {c: 2}, {c: 3}]}]}], '  '), '<a>\n  <b>\n    <c>1</c>\n    <c>2</c>\n    <c>3</c>\n  </b>\n</a>');
+    t.is(xml([{a: [{b: [{c: 1}, {c: 2}, {c: 3}]}]}], '\t'), '<a>\n\t<b>\n\t\t<c>1</c>\n\t\t<c>2</c>\n\t\t<c>3</c>\n\t</b>\n</a>');
+    t.is(xml({guid: [{_attr: {premalink: true}}, 'content']}, true), '<guid premalink="true">content</guid>');
+});
+
+test('supports xml attributes', t => {
+    t.is(xml([{b: {_attr: {}}}]), '<b/>');
+    t.is(xml([{
+        a: {
+            _attr: {
+                attribute1: 'some value',
+                attribute2: 12345
+            }
+        }
+    }]), '<a attribute1="some value" attribute2="12345"/>');
+    t.is(xml([{
+        a: [{
+            _attr: {
+                attribute1: 'some value',
+                attribute2: 12345
+            }
+        }]
+    }]), '<a attribute1="some value" attribute2="12345"></a>');
+    t.is(xml([{
+        a: [{
+            _attr: {
+                attribute1: 'some value',
+                attribute2: 12345
+            }
+        }, 'content']
+    }]), '<a attribute1="some value" attribute2="12345">content</a>');
+});
+
+test('supports cdata', t => {
+    t.is(xml([{a: {_cdata: 'This is some <strong>CDATA</strong>'}}]), '<a><![CDATA[This is some <strong>CDATA</strong>]]></a>');
+    t.is(xml([{
+        a: {
+            _attr: {attribute1: 'some value', attribute2: 12345},
+            _cdata: 'This is some <strong>CDATA</strong>'
+        }
+    }]), '<a attribute1="some value" attribute2="12345"><![CDATA[This is some <strong>CDATA</strong>]]></a>');
+    t.is(xml([{a: {_cdata: 'This is some <strong>CDATA</strong> with ]]> and then again ]]>'}}]), '<a><![CDATA[This is some <strong>CDATA</strong> with ]]]]><![CDATA[> and then again ]]]]><![CDATA[>]]></a>');
+});
+
+test('supports encoding', t => {
+    t.is(xml([{
+        a: [{
+            _attr: {
+                anglebrackets: 'this is <strong>strong</strong>',
+                url: 'http://google.com?s=opower&y=fun'
+            }
+        }, 'text']
+    }]), '<a anglebrackets="this is &lt;strong&gt;strong&lt;/strong&gt;" url="http://google.com?s=opower&amp;y=fun">text</a>');
+});
+
+test('supports stream interface', t => {
+    const elem = xml.element({_attr: {decade: '80s', locale: 'US'}});
+    const xmlStream = xml({toys: elem}, {stream: true});
+    const results = ['<toys decade="80s" locale="US">', '<toy>Transformers</toy>', '<toy><name>He-man</name></toy>', '<toy>GI Joe</toy>', '</toys>'];
+
+    elem.push({toy: 'Transformers'});
+    elem.push({toy: [{name: 'He-man'}]});
+    elem.push({toy: 'GI Joe'});
+    elem.close();
+
+    xmlStream.on('data', stanza => {
+        t.is(stanza, results.shift());
     });
 
-    it('works with simple options', function(done) {
-        expect(xml([ { a: {} }])).to.equal('<a/>');
-        expect(xml([ { a: null }])).to.equal('<a/>');
-        expect(xml([ { a: [] }])).to.equal('<a></a>');
-        expect(xml([ { a: -1 }])).to.equal('<a>-1</a>');
-        expect(xml([ { a: false }])).to.equal('<a>false</a>');
-        expect(xml([ { a: 'test' }])).to.equal('<a>test</a>');
-        expect(xml( { a: {} })).to.equal('<a/>');
-        expect(xml( { a: null })).to.equal('<a/>');
-        expect(xml( { a: [] })).to.equal('<a></a>');
-        expect(xml( { a: -1 })).to.equal('<a>-1</a>');
-        expect(xml( { a: false })).to.equal('<a>false</a>');
-        expect(xml( { a: 'test' })).to.equal('<a>test</a>');
-        expect(xml([ { a: 'test' }, { b: 123 }, { c: -0.5 } ])).to.equal('<a>test</a><b>123</b><c>-0.5</c>');
-        done();
-    });
-
-    it('works with deeply nested objects', function(done) {
-        expect(xml([ { a: [ { b: [ { c: 1 }, { c: 2 }, { c: 3 } ] } ] }]), '<a><b><c>1</c><c>2</c><c>3</c></b></a>');
-        done();
-    });
-
-    it('indents property', function(done) {
-        expect(xml([ { a: [ { b: [ { c: 1 }, { c: 2 }, { c: 3 } ] } ] }], true)).to.equal('<a>\n    <b>\n        <c>1</c>\n        <c>2</c>\n        <c>3</c>\n    </b>\n</a>');
-        expect(xml([ { a: [ { b: [ { c: 1 }, { c: 2 }, { c: 3 } ] } ] }], '  ')).to.equal('<a>\n  <b>\n    <c>1</c>\n    <c>2</c>\n    <c>3</c>\n  </b>\n</a>');
-        expect(xml([ { a: [ { b: [ { c: 1 }, { c: 2 }, { c: 3 } ] } ] }], '\t')).to.equal('<a>\n\t<b>\n\t\t<c>1</c>\n\t\t<c>2</c>\n\t\t<c>3</c>\n\t</b>\n</a>');
-        expect(xml({guid:[{_attr:{premalink:true}},'content']},true)).to.equal('<guid premalink="true">content</guid>');
-        done();
-    });
-
-    it('supports xml attributes', function(done) {
-        expect(xml([ { b: { _attr: {} } } ]), '<b/>');
-        expect(xml([ { a: { _attr: { attribute1: 'some value', attribute2: 12345 } } } ])).to.equal('<a attribute1="some value" attribute2="12345"/>');
-        expect(xml([ { a: [{ _attr: { attribute1: 'some value', attribute2: 12345 } }] } ])).to.equal('<a attribute1="some value" attribute2="12345"></a>');
-        expect(xml([ { a: [{ _attr: { attribute1: 'some value', attribute2: 12345 } }, 'content'] } ])).to.equal('<a attribute1="some value" attribute2="12345">content</a>');
-        done();
-    });
-
-    it('supports cdata', function(done) {
-        expect(xml([ { a: { _cdata: 'This is some <strong>CDATA</strong>' } } ])).to.equal('<a><![CDATA[This is some <strong>CDATA</strong>]]></a>');
-        expect(xml([ { a: { _attr: { attribute1: 'some value', attribute2: 12345 },  _cdata: 'This is some <strong>CDATA</strong>' } } ])).to.equal('<a attribute1="some value" attribute2="12345"><![CDATA[This is some <strong>CDATA</strong>]]></a>');
-        expect(xml([ { a: { _cdata: 'This is some <strong>CDATA</strong> with ]]> and then again ]]>' } } ])).to.equal('<a><![CDATA[This is some <strong>CDATA</strong> with ]]]]><![CDATA[> and then again ]]]]><![CDATA[>]]></a>');
-        done();
-    });
-
-    it('supports encoding', function(done) {
-        expect(xml([ { a: [ {  _attr: { anglebrackets: 'this is <strong>strong</strong>', url: 'http://google.com?s=opower&y=fun' } }, 'text'] } ]), '<a anglebrackets="this is &lt;strong&gt;strong&lt;/strong&gt;" url="http://google.com?s=opower&amp;y=fun">text</a>');
-        done();
-    });
-
-    it('supports stream interface', function (done) {
-        var elem = xml.element({ _attr: { decade: '80s', locale: 'US'} });
-        var xmlStream = xml({ toys: elem }, { stream: true });
-        var results = ['<toys decade="80s" locale="US">','<toy>Transformers</toy>','<toy><name>He-man</name></toy>','<toy>GI Joe</toy>','</toys>'];
-
-        xmlStream.on('data', function (stanza) {
-            expect(stanza).to.equal(results.shift());
+    return new Promise( (resolve, reject) => {
+        xmlStream.on('close', () => {
+            t.same(results, []);
+            resolve();
         });
-        xmlStream.on('close', function () {
-            expect(results).to.be.be.empty;
-            done();
+        xmlStream.on('error', reject);
+    });
+});
+
+test('streams end properly', t => {
+    const elem = xml.element({ _attr: { decade: '80s', locale: 'US'} });
+    const xmlStream = xml({ toys: elem }, { stream: true });
+
+    let gotData;
+
+    t.plan(7);
+
+    elem.push({ toy: 'Transformers' });
+    elem.push({ toy: 'GI Joe' });
+    elem.push({ toy: [{name:'He-man'}] });
+    elem.close();
+
+    xmlStream.on('data',  data => {
+        t.ok(data);
+        gotData = true;
+    });
+
+    xmlStream.on('end',  () => {
+        t.ok(gotData);
+    });
+
+    return new Promise( (resolve, reject) => {
+        xmlStream.on('close',  () => {
+            t.ok(gotData);
+            resolve();
         });
-
-        elem.push({ toy: 'Transformers' });
-        elem.push({ toy: [ { name: 'He-man' } ] });
-        setTimeout(function () {
-            elem.push({ toy: 'GI Joe' });
-            elem.close();
-        }, 10);
+        xmlStream.on('error', reject);
     });
+});
 
-    it('xml declaration options', function(done) {
-        expect(xml([ { a: 'test' }], { declaration: true })).to.equal('<?xml version="1.0" encoding="UTF-8"?><a>test</a>');
-        expect(xml([ { a: 'test' }], { declaration: {encoding: 'foo' }})).to.equal('<?xml version="1.0" encoding="foo"?><a>test</a>');
-        expect(xml([ { a: 'test' }], { declaration: {standalone: 'yes' }})).to.equal('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><a>test</a>');
-        expect(xml([ { a: 'test' }], { declaration: false })).to.equal('<a>test</a>');
-        expect(xml([ { a: 'test' }], { declaration: true, indent: '\n' })).to.equal('<?xml version="1.0" encoding="UTF-8"?>\n<a>test</a>');
-        expect(xml([ { a: 'test' }], {})).to.equal('<a>test</a>');
-        done();
-    });
-
+test('xml declaration options', t => {
+    t.is(xml([{a: 'test'}], {declaration: true}), '<?xml version="1.0" encoding="UTF-8"?><a>test</a>');
+    t.is(xml([{a: 'test'}], {declaration: {encoding: 'foo'}}), '<?xml version="1.0" encoding="foo"?><a>test</a>');
+    t.is(xml([{a: 'test'}], {declaration: {standalone: 'yes'}}), '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><a>test</a>');
+    t.is(xml([{a: 'test'}], {declaration: false}), '<a>test</a>');
+    t.is(xml([{a: 'test'}], {declaration: true, indent: '\n'}), '<?xml version="1.0" encoding="UTF-8"?>\n<a>test</a>');
+    t.is(xml([{a: 'test'}], {}), '<a>test</a>');
 });

@@ -1,6 +1,6 @@
-# XML for Node [![Build Status](https://api.travis-ci.org/dylang/node-xml.svg)](http://travis-ci.org/dylang/node-xml)
+# xml [![Build Status](https://api.travis-ci.org/dylang/node-xml.svg)](http://travis-ci.org/dylang/node-xml)
 
-  [![NPM](https://nodei.co/npm/xml.png?downloads=true)](https://nodei.co/npm/xml/)
+[![NPM](https://nodei.co/npm/xml.png?downloads=true)](https://nodei.co/npm/xml/)
 
 > Fast and simple Javascript-based XML generator/builder for Node projects.
 
@@ -171,7 +171,7 @@ result:
 
 ## Tests
 
-Tests included use Mocha. Use `npm test` to run the tests.
+Tests included use [AVA](https://ava.li). Use `npm test` to run the tests.
 
     $ npm test
 
@@ -181,30 +181,4 @@ There are examples in the examples directory.
 
 # Contributing
 
-Contributions to the project are welcome. Feel free to fork and improve. I accept pull requests and issues,
-especially when tests are included.
-
-# License
-
-(The MIT License)
-
-Copyright (c) 2011-2014 Dylan Greene <dylang@gmail.com>
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Contributions to the project are welcome. Feel free to fork and improve. I accept pull requests when tests are included.

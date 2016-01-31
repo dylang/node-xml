@@ -1,6 +1,6 @@
 {
   "name": "xml",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples.",
   "homepage": "http://github.com/dylang/node-xml",
   "keywords": [
@@ -28,11 +28,10 @@
     "url": "http://github.com/dylang/node-xml/issues"
   },
   "devDependencies": {
-    "chai": "~1.9.0",
-    "mocha": "~1.21.4"
+    "ava": "^0.11.0"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "ava"
   },
   "main": "lib/xml.js",
   "license": "MIT"
