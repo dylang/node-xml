@@ -148,3 +148,8 @@ test('xml declaration options', t => {
     t.is(xml([{a: 'test'}], {declaration: true, indent: '\n'}), '<?xml version="1.0" encoding="UTF-8"?>\n<a>test</a>');
     t.is(xml([{a: 'test'}], {}), '<a>test</a>');
 });
+
+test('escape option', t => {
+    t.is(xml([ { x: '<a>test</a>' } ], { escape: false }), '<x><a>test</a></x>');
+    t.is(xml([ { x: [ { _attr: { a: 'x' } }, '<a>test</a>' ] } ], { escape: false }), '<x a="x"><a>test</a></x>');
+});
