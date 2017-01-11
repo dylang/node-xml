@@ -148,3 +148,22 @@ test('xml declaration options', t => {
     t.is(xml([{a: 'test'}], {declaration: true, indent: '\n'}), '<?xml version="1.0" encoding="UTF-8"?>\n<a>test</a>');
     t.is(xml([{a: 'test'}], {}), '<a>test</a>');
 });
+
+test('multiple elements for xml', t=> {
+    var elem = xml.element({ _attr: { xmlns: 'http://www.opengis.net/kml/2.2'} });
+    var doc = xml.element({});
+
+    let output = "";
+
+    var stream = xml([{kml: elem}, {Document: doc}])
+    stream.on('data',  data => {
+        output += data;
+    });
+
+    stream.on('end',  () => {
+        t.is(output, '<kml xmlns="http://www.opengis.net/kml/2.2"><Document></Document></kml>');
+    });
+
+    doc.close();
+    elem.close();
+});
