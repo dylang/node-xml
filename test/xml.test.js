@@ -148,3 +148,29 @@ test('xml declaration options', t => {
     t.is(xml([{a: 'test'}], {declaration: true, indent: '\n'}), '<?xml version="1.0" encoding="UTF-8"?>\n<a>test</a>');
     t.is(xml([{a: 'test'}], {}), '<a>test</a>');
 });
+
+test('supports multiple mixed data in signle list', t => {
+    t.is(xml([{ toys: [{
+            _attr: {
+                decade: '80s',
+                locale: 'US'
+            }
+        }, {
+            toy: [{
+                    _attr: {
+                        decade: '70s',
+                        locale: 'CA'
+                    }
+                },
+                'Transformers',
+                {
+                    toya: [{
+                        _attr: {
+                            knowing: 'half the battle'
+                        }
+                    }, 'GI Joe']
+                },
+                ' and the A-team'
+            ]
+        }]}]), '<toys decade="80s" locale="US"><toy decade="70s" locale="CA">Transformers<toya knowing="half the battle">GI Joe</toya> and the A-team</toy></toys>')
+})
