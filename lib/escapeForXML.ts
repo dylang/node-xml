@@ -1,5 +1,5 @@
 
-var XML_CHARACTER_MAP = {
+const XML_CHARACTER_MAP: Record<string, string> = {
     '&': '&amp;',
     '"': '&quot;',
     "'": '&apos;',
@@ -7,12 +7,12 @@ var XML_CHARACTER_MAP = {
     '>': '&gt;'
 };
 
-function escapeForXML(string) {
+function escapeForXML(string: any): any {
     return string && string.replace
-        ? string.replace(/([&"<>'])/g, function(str, item) {
+        ? string.replace(/([&"<>'])/g, function(str: string, item: string) {
             return XML_CHARACTER_MAP[item];
           })
         : string;
 }
 
-module.exports = escapeForXML;
+export default escapeForXML;

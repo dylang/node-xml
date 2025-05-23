@@ -27,12 +27,29 @@
   "bugs": {
     "url": "http://github.com/dylang/node-xml/issues"
   },
+  "type": "module",
   "devDependencies": {
-    "ava": "^0.11.0"
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0",
+    "@types/node": "^20.0.0"
   },
   "scripts": {
-    "test": "ava"
+    "test": "vitest",
+    "build": "tsc",
+    "dev": "vitest"
   },
-  "main": "lib/xml.js",
+  "main": "dist/xml.js",
+  "exports": {
+    ".": {
+      "import": "./dist/xml.js",
+      "require": "./dist/xml.js"
+    }
+  },
+  "files": [
+    "dist",
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
   "license": "MIT"
 }
