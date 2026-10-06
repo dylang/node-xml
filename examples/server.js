@@ -1,7 +1,17 @@
-var http = require('http'),
+var https = require('https'),
+    fs = require('fs'),
+    path = require('path'),
     XML = require('../lib/xml');
 
-var server = http.createServer(function(req, res) {
+var privateKey = fs.readFileSync(path.join(__dirname, 'server.key'), 'utf8');
+var certificate = fs.readFileSync(path.join(__dirname, 'server.crt'), 'utf8');
+
+var options = {
+    key: privateKey,
+    cert: certificate
+};
+
+var server = https.createServer(options, function(req, res) {
     res.writeHead(200, {"Content-Type": "text/xml"});
 
     var elem = XML.Element({ _attr: { decade: '80s', locale: 'US'} });
